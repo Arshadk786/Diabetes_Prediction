@@ -61,4 +61,4 @@ async def predict_diabetes(data: predict):
 
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='diabetesprediciton.ddns.net', port=5000)
+    uvicorn.run(app, host='localhost', port=5000)
