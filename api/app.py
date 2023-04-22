@@ -1,5 +1,6 @@
 import pickle
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -17,6 +18,14 @@ class predict(BaseModel):
     age: int
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 with open("svc.pkl", "rb") as f:
     clf = pickle.load(f)
