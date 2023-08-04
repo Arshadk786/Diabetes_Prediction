@@ -24,7 +24,7 @@ app.add_middleware(
     allow_origins=["*"],
 )
 
-with open("svc.pkl", "rb") as f:
+with open("../svc.pkl", "rb") as f:
     clf = pickle.load(f)
 
 
