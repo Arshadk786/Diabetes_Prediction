@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from pydantic import BaseModel
+from mangum import Mangum
 
 
 class predict(BaseModel):
@@ -18,6 +19,7 @@ class predict(BaseModel):
     age: int
 
 app = FastAPI()
+handler = Mangum(app)
 
 app.add_middleware(
     CORSMiddleware,
