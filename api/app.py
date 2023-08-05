@@ -1,4 +1,5 @@
 import pickle
+import boto3
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
@@ -23,8 +24,12 @@ app.add_middleware(
     allow_origins=["*"],
 )
 
-with open("../svc.pkl", "rb") as f:
-    clf = pickle.load(f)
+# with open("s3://svcmodel/svc.pkl", "rb") as f:
+#     clf = pickle.load(f)
+
+s3 = boto3.client('s3')
+response = s3.get_object(Bucket='svcmodel', Key='svc.pkl')
+clf = pickle.loads(response['Body'].read())
 
 
 #Index
