@@ -2,18 +2,18 @@
     "version": 2,
     "builds": [
       {
-        "src": "api/app.py",
+        "src": "main.py",
         "use": "@vercel/python"
       }
     ],
     "routes": [
       {
         "src": "/predict",
-        "dest": "api.app.predict_diabetes"
+        "dest": "main.predict_diabetes"
       },
       {
         "src": "/(.*)",
-        "dest": "api.app.handler"
+        "dest": "main.handler"
       }
     ]
   }
