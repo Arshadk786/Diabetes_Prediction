@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import numpy as np
 from pydantic import BaseModel
-from mangum import Mangum
 
 def standard_scaler_to_array(data):
     # Convert the DataFrame to a NumPy array
@@ -34,7 +33,6 @@ class predict(BaseModel):
     age: int = Query(..., description="Age", ge=0)
 
 app = FastAPI()
-handler = Mangum(app)
 
 app.add_middleware(
     CORSMiddleware,
