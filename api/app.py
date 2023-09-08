@@ -2,10 +2,26 @@ import pickle
 from fastapi import FastAPI,Query
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+import numpy as np
 from pydantic import BaseModel
 from mangum import Mangum
 
+def standard_scaler_to_array(data):
+    # Convert the DataFrame to a NumPy array
+    data_array = data.to_numpy()
+
+    # Calculate the mean and standard deviation along each feature axis (axis 0)
+    mean = np.mean(data_array, axis=0)
+    std = np.std(data_array, axis=0)
+
+    # Avoid division by zero by adding a small epsilon if std is close to zero
+    epsilon = 1e-10
+    std = np.where(std < epsilon, epsilon, std)
+
+    # Standardize the data
+    standardized_array = (data_array - mean) / std
+
+    return standardized_array
 
 class predict(BaseModel):
     pregnancies: int = Query(..., description="Number of pregnancies", ge=0)
@@ -41,10 +57,9 @@ async def predict_diabetes(data: predict):
         data_list = pd.DataFrame([data.pregnancies, data.glucose, data.bloodpressure,
                       data.skinthickness, data.insulin, data.bmi,
                       data.diabetespedigreefunction, data.age])
-        sc = StandardScaler()
         
         # Standardise the input data
-        standardised_input = sc.fit_transform(data_list)
+        standardised_input = standard_scaler_to_array(data_list)
 
         # Make prediction using a trained model (clf)
         results = int(clf.predict(standardised_input.reshape(1, -1)))
