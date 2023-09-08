@@ -9,11 +9,11 @@
     "routes": [
       {
         "src": "/predict",
-        "dest": "main.handler"  
+        "dest": "main"  
       },
       {
         "src": "/.*",
-        "dest": "main.handler"
+        "dest": "main"
       }
     ]
   }
