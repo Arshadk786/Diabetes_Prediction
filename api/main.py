@@ -29,7 +29,7 @@ class predict(BaseModel):
     skinthickness: float = Query(..., description="Skin thickness", ge=0)
     insulin: float = Query(..., description="Insulin level", ge=0)
     bmi: float = Query(..., description="Body Mass Index (BMI)", ge=0)
-    diabetespedigreefunction: float = Query(..., description="Diabetes pedigree function", ge=0)
+    diabetespedigreefunction: float = Query(..., description="Diabetes pedigree function")
     age: int = Query(..., description="Age", ge=0)
 
 app = FastAPI()
@@ -64,8 +64,8 @@ async def predict_diabetes(data: predict):
         
         if results == 0:
             return f"You are Healthy"
-        elif results == 1:
-            return f"You have Diabetes, You gonna die nigga!!"
+        else:
+            return f"You have Diabetes"
     
         # return json.dumps(results)
     
