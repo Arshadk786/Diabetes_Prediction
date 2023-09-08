@@ -1,20 +1,15 @@
 {
     "version": 2,
     "builds": [
-      {
-        "src": "main.py",  
-        "use": "@vercel/python"
-      }
+        {
+            "src": "main.py",
+            "use": "@vercel/python"
+        }
     ],
     "routes": [
-      {
-        "src": "/predict",
-        "dest": "main"  
-      },
-      {
-        "src": "/.*",
-        "dest": "main"
-      }
+        {
+            "src": "/(.*)",
+            "dest": "main.py"
+        }
     ]
-  }
-  
+}
