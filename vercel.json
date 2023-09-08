@@ -9,11 +9,11 @@
     "routes": [
       {
         "src": "/predict",
-        "dest": "main.predict_diabetes"
+        "dest": "api.app.predict_diabetes"
       },
       {
         "src": "/(.*)",
-        "dest": "main.handler"
+        "dest": "api.app.handler"
       }
     ]
   }
